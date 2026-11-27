@@ -1,0 +1,15 @@
+ID,Title,Priority,StoryPoint,Status
+US-01,Create account and profile,High,1,Sprint 1
+US-02,Add friends by username or phone,High,3,Sprint 1
+US-03,Create event,High,2,Sprint 1
+US-04,Invite friends or groups,High,3,Sprint 1
+US-05,RSVP to event,High,3,Sprint 1
+US-06,Vote on date and time,Medium,2,TODO
+US-07,Suggest and vote on location,Medium,3,TODO
+US-08,Comment on event,High,3,Sprint 1
+US-09,Reminder notification,High,3,Sprint 1
+US-10,View upcoming events,High,2,Sprint 1
+US-11,Edit event details,Medium,5,TODO
+US-12,Cancel event,Medium,2,TODO
+US-13,Sync event to calendar,Low,3,TODO
+US-14,Create recurring event,Low,3,TODO

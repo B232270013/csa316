@@ -1,0 +1,10 @@
+Sprint,CapacitySP,StoryID,Title,StoryPoint,Status
+Sprint 1,24,US-01,Create account and profile,1,TODO
+Sprint 1,24,US-02,Add friends by username or phone,3,TODO
+Sprint 1,24,US-03,Create event,2,TODO
+Sprint 1,24,US-04,Invite friends or groups,3,TODO
+Sprint 1,24,US-05,RSVP to event,3,TODO
+Sprint 1,24,US-10,View upcoming events,2,TODO
+Sprint 1,24,US-08,Comment on event,3,TODO
+Sprint 1,24,US-09,Reminder notification,3,TODO
+Sprint 1,24,TOTAL,,20,
