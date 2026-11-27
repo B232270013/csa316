@@ -1,0 +1,24 @@
+services:
+  app:
+    build: .
+    ports: ['3000:3000']
+    environment:
+      DATABASE_URL: postgres://event:localdev@db:5432/events
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: event
+      POSTGRES_PASSWORD: localdev
+      POSTGRES_DB: events
+    healthcheck:
+      test: ['CMD-SHELL','pg_isready -U event -d events']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    volumes:
+      - eventdata:/var/lib/postgresql/data
+volumes:
+  eventdata:
