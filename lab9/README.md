@@ -1,0 +1,2 @@
+# Minikube
+`minikube start --driver=docker`; `minikube image load social-event:1.0`; `kubectl apply -f lab9/`; `kubectl rollout status deployment/social-event`; `kubectl get pods`; нэг pod нэрийг сонгон `kubectl delete pod NAME`; `kubectl get pods -w`; `minikube service social-event`. 3 replica ба self-healing screenshot авах. Энэ демо in-memory тул replica хооронд өгөгдөл хуваалцахгүй; үйлдвэрлэлийн deploy-д shared PostgreSQL хэрэгтэй.
