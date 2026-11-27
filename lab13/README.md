@@ -1,0 +1,2 @@
+# Monitoring
+`docker compose -f docker-compose.yml -f docker-compose.monitoring.yml up --build` . Prometheus http://localhost:9090, Grafana http://localhost:3001 (анхны локал admin/admin нууц үгээ солино). Dashboard автоматаар provision хийгдэнэ. `for i in {1..100}; do curl -fsS http://localhost:3000/events >/dev/null; sleep 0.1; done` . Requests, P95, availability 3 panel. AppDown alert Prometheus дээр. Screenshot бодит ажиллуулалтын дараа.
