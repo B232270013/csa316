@@ -1,0 +1,24 @@
+@startuml
+class User { 
+ id: UUID
+ name: String
+}
+class Event {
+ id: UUID
+ title: String
+ date: Date
+ cancel()
+}
+class Invitation {
+ status: String
+ respond()
+}
+class Comment {
+ text: String
+}
+User "1" -- "*" Event : owns
+User "1" -- "*" Invitation
+Event "1" -- "*" Invitation
+Event "1" -- "*" Comment
+User "1" -- "*" Comment
+@enduml

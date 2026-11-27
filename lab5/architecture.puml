@@ -1,0 +1,6 @@
+@startuml
+[Web / Mobile browser] --> [Express API]
+[Express API] --> [Business logic]
+[Business logic] --> [Repository]
+[Repository] --> database PostgreSQL
+@enduml

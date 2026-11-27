@@ -1,0 +1,22 @@
+@startuml
+left to right direction
+actor User
+actor Organizer
+Organizer --|> User
+rectangle System {
+usecase Register
+usecase Search
+usecase RSVP
+usecase Comment
+usecase CreateEvent
+usecase Invite
+usecase Cancel
+}
+User -- Register
+User -- Search
+User -- RSVP
+User -- Comment
+Organizer -- CreateEvent
+Organizer -- Invite
+Organizer -- Cancel
+@enduml

@@ -1,0 +1,13 @@
+@startuml
+actor User
+participant Web
+participant API
+database PostgreSQL
+User -> Web: Create event
+Web -> API: POST /events
+API -> API: Validate
+API -> PostgreSQL: INSERT
+PostgreSQL --> API: event
+API --> Web: 201
+Web --> User: Event created
+@enduml
