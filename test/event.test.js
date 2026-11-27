@@ -1,0 +1,1 @@
+const {test}=require('node:test');const assert=require('node:assert/strict');const {validateEvent}=require('../src/validation');test('valid event',()=>assert.equal(validateEvent({title:'Meeting',date:'2030-01-01'},0).title,'Meeting'));

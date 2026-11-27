@@ -1,0 +1,21 @@
+const express = require('express');
+const {Pool} = require('pg');
+const {randomUUID} = require('node:crypto');
+const prom = require('prom-client');
+const {createEvent} = require('./validation');
+const app = express();
+const pool = process.env.DATABASE_URL ? new Pool({connectionString:process.env.DATABASE_URL}) : null;
+const events = [];
+const repo = {async create(e) {const item={id:randomUUID(),...e}; if(pool){await pool.query('INSERT INTO events(id,title,description,date) VALUES($1,$2,$3,$4)',[item.id,item.title,item.description,item.date]);} else events.push(item); return item;}, async list(){return pool ? (await pool.query('SELECT * FROM events ORDER BY date')).rows : events;}};
+const requests = new prom.Counter({name:'http_requests_total',help:'HTTP requests'});
+const duration = new prom.Histogram({name:'http_request_duration_seconds',help:'HTTP duration'});
+app.use(express.json({limit:'16kb'}));
+app.use((req,res,next)=>{if(req.path==='/metrics')return next(); const end=duration.startTimer();res.on('finish',()=>{requests.inc();end();});next();});
+app.use(express.static('public'));
+app.get('/health', (req,res)=>res.json({status:'ok'}));
+app.get('/metrics',async(req,res)=>{res.set('Content-Type',prom.register.contentType);res.send(await prom.register.metrics());});
+app.get('/events',async(req,res,next)=>{try{res.json(await repo.list());}catch(e){next(e);}});
+app.post('/events',async(req,res,next)=>{try{res.status(201).json(await createEvent(repo,req.body));}catch(e){if(e.message==='Invalid title'||e.message==='Invalid date')return res.status(400).json({error:e.message});next(e);}});
+app.use((err,req,res,next)=>{if(res.headersSent)return next(err);res.status(err.status===400?400:500).json({error:'Request failed'});});
+async function start(){if(pool)await pool.query('CREATE TABLE IF NOT EXISTS events(id uuid PRIMARY KEY,title varchar(120) NOT NULL,description text,date timestamptz NOT NULL)');app.listen(3000,'0.0.0.0');}
+start().catch(e=>{console.error(e);process.exit(1);});
